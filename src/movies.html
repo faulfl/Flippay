@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FlipPlay - Jelajahi seluruh katalog film dengan tema retro desktop UI, cari judul film, dan saring genre favorit." />
+  <title>Explore All Movies - FlipPlay Retro Cinema</title>
+
+  <!-- Google Fonts: Silkscreen, VT323, Bricolage Grotesque & DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=VT323&family=Bricolage+Grotesque:opsz,wght@12..96,600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./output.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+
+  <!-- ==========================================
+       NAVBAR (Retro Dark Bar)
+       ========================================== -->
+  <header class="navbar-header" id="navbar">
+    <div class="container navbar-inner">
+      <!-- Brand Logo linking to Home -->
+      <a href="index.html#beranda" class="brand-logo" aria-label="FlipPlay Beranda">
+        <span class="logo-badge">🎬</span>
+        <span>Flip<span style="color: var(--color-yellow);">Play</span>.exe</span>
+      </a>
+
+      <!-- Navigation Menu with Yellow Buttons -->
+      <nav aria-label="Navigasi Utama">
+        <ul class="nav-menu">
+          <li><a href="index.html#beranda" class="btn-nav-yellow">Home</a></li>
+          <li><a href="index.html#keunggulan" class="btn-nav-yellow">Keunggulan</a></li>
+          <li><a href="movies.html" class="btn-nav-yellow active">Katalog Film</a></li>
+          <li><a href="index.html#kontak" class="btn-nav-yellow">Kontak</a></li>
+        </ul>
+      </nav>
+
+      <!-- CTA Button & Mobile Toggle -->
+      <div class="nav-actions">
+        <a href="index.html#beranda" class="btn-retro-ok btn-sm">
+          <span>&larr; Beranda</span>
+        </a>
+
+        <button 
+          type="button" 
+          class="menu-toggle" 
+          id="mobileMenuToggle" 
+          aria-label="Buka menu navigasi"
+          aria-expanded="false">
+          ☰ MENU
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Nav with Yellow Buttons -->
+    <div class="mobile-nav" id="mobileNavDrawer">
+      <ul style="gap: 0.65rem;">
+        <li><a href="index.html#beranda" class="btn-nav-yellow block-btn">Kembali ke Home</a></li>
+        <li><a href="index.html#keunggulan" class="btn-nav-yellow block-btn">Keunggulan FlipPlay</a></li>
+        <li><a href="movies.html" class="btn-nav-yellow block-btn active">Katalog Lengkap (Aktif)</a></li>
+        <li><a href="index.html#kontak" class="btn-nav-yellow block-btn">Kontak &amp; Saran</a></li>
+      </ul>
+    </div>
+  </header>
+
+
+  <main style="padding-top: 2rem;">
+    <!-- ==========================================
+         TOOLBAR & HEADER (Retro Search Window)
+         ========================================== -->
+    <section class="container" style="margin-bottom: 2.5rem;">
+      <article class="retro-window catalog-toolbar-window">
+        
+        <!-- Teal Window Header -->
+        <div class="window-titlebar teal">
+          <span class="window-title">
+            <span>🔍</span>
+            <span>Search_Catalog.app</span>
+          </span>
+          <div class="window-controls">
+            <span class="window-btn">_</span>
+            <span class="window-btn">□</span>
+            <span class="window-btn">✕</span>
+          </div>
+        </div>
+
+        <div class="toolbar-inner">
+          <div style="text-align: center; margin-bottom: 1.5rem;">
+            <div class="pill-badge" style="margin-bottom: 0.65rem;">
+              <span>✦ KATALOG RESMI SINEMA ✦</span>
+            </div>
+            <h1 class="font-display" style="font-size: clamp(2.2rem, 4vw, 3.2rem); margin-bottom: 0.35rem;">
+              Explore All Movies
+            </h1>
+            <p style="font-size: 1.05rem; color: rgba(44, 34, 38, 0.85); max-width: 640px; margin: 0 auto;">
+              Cari film favoritmu dan temukan tontonan berikutnya dari ribuan judul resmi dengan rating penonton terpercaya.
+            </p>
+          </div>
+
+          <!-- Retro Search Bar from Reference Image: [ 🔍 | Search... ] -->
+          <div class="retro-search-box">
+            <button type="button" class="search-teal-icon" id="catalogSearchBtn" aria-label="Lakukan pencarian">
+              🔍
+            </button>
+            <label for="catalogSearchInput" class="sr-only" style="position: absolute; width: 1px; height: 1px; overflow: hidden;">Cari judul film</label>
+            <input 
+              type="search" 
+              id="catalogSearchInput" 
+              class="retro-search-input" 
+              placeholder="Search... (contoh: Avatar, Spider-Man, Inside Out)"
+              autocomplete="off"
+            />
+          </div>
+
+          <!-- Official Genre Filter Chips (Retro Buttons) -->
+          <div style="text-align: center; margin-bottom: 0.5rem;">
+            <span class="font-pixel" style="font-size: 0.75rem; text-transform: uppercase;">
+              Filter Kategori Genre:
+            </span>
+          </div>
+
+          <div class="genre-chips-container" id="genreChipsContainer" role="radiogroup" aria-label="Filter genre film">
+            <button type="button" class="genre-chip-btn active" data-genre-id="" role="radio" aria-checked="true">
+              Semua Genre
+            </button>
+            <button type="button" class="genre-chip-btn" data-genre-id="28" role="radio" aria-checked="false">
+              Action
+            </button>
+            <button type="button" class="genre-chip-btn" data-genre-id="35" role="radio" aria-checked="false">
+              Comedy
+            </button>
+            <button type="button" class="genre-chip-btn" data-genre-id="18" role="radio" aria-checked="false">
+              Drama
+            </button>
+            <button type="button" class="genre-chip-btn" data-genre-id="27" role="radio" aria-checked="false">
+              Horror
+            </button>
+            <button type="button" class="genre-chip-btn" data-genre-id="10749" role="radio" aria-checked="false">
+              Romance
+            </button>
+            <button type="button" class="genre-chip-btn" data-genre-id="16" role="radio" aria-checked="false">
+              Animation
+            </button>
+            <button type="button" class="genre-chip-btn" data-genre-id="53" role="radio" aria-checked="false">
+              Thriller
+            </button>
+            <button type="button" class="genre-chip-btn" data-genre-id="12" role="radio" aria-checked="false">
+              Adventure
+            </button>
+          </div>
+
+          <!-- Result Stats & Reset Filter Row -->
+          <div class="catalog-stats-row">
+            <span id="catalogStatsText">Menyiapkan daftar katalog...</span>
+            <button type="button" id="btnResetFilter" class="btn-reset-filters">
+              [ Reset Pencarian &amp; Filter ]
+            </button>
+          </div>
+        </div>
+
+      </article>
+    </section>
+
+
+    <!-- ==========================================
+         MOVIES GRID CONTAINER
+         ========================================== -->
+    <section class="container" style="min-height: 500px; margin-bottom: 4rem;">
+      <!-- Live Movie Cards Grid (4 cols on desktop, responsive) -->
+      <div class="movies-grid" id="catalogGrid">
+        <!-- Populated by CatalogPage in app.js -->
+      </div>
+
+      <!-- Pagination / Load More (Retro Button) -->
+      <div style="text-align: center; margin-top: 2rem;">
+        <button type="button" class="btn-retro-ok btn-yellow" id="btnLoadMore" style="padding: 1rem 2.5rem; font-size: 1rem;">
+          <span>[ MUAT LEBIH BANYAK FILM ]</span>
+          <span aria-hidden="true">&darr;</span>
+        </button>
+        <p style="font-size: 0.8rem; font-family: var(--font-pixel); color: rgba(44,34,38,0.7); margin-top: 0.75rem;">
+          Memuat halaman berikutnya secara langsung dari server TMDB tanpa duplikat.
+        </p>
+      </div>
+    </section>
+
+    <!-- Floating Retro Music Player (syncs with MusicPlayerController) -->
+    <div style="position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 999;">
+      <div class="retro-audio-player" id="retroAudioPlayer" aria-label="Player sinema" style="box-shadow: 4px 4px 0 rgba(0,0,0,0.3);">
+        <div class="audio-controls-group">
+          <button type="button" class="audio-step-btn" id="audioPrevBtn" aria-label="Lagu sebelumnya" title="Lagu sebelumnya">
+            ⏮
+          </button>
+          <button type="button" class="audio-play-btn" id="audioPlayBtn" aria-label="Putar musik" title="Putar / Jeda">
+            <span id="audioPlayIcon">▶</span>
+          </button>
+          <button type="button" class="audio-step-btn" id="audioNextBtn" aria-label="Lagu berikutnya" title="Lagu berikutnya">
+            ⏭
+          </button>
+        </div>
+
+        <div class="audio-wave-graphic" aria-hidden="true">
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+          <span class="wave-bar"></span>
+        </div>
+
+        <div class="audio-info-box">
+          <span class="font-pixel audio-title-text" id="audioTrackTitle">
+            1/6: Eenie Meenie x Beauty &amp; Beat
+          </span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html#beranda" class="brand-logo">
+            <span class="logo-badge">🎬</span>
+            <span>Flip<span style="color: var(--color-yellow);">Play</span>.exe</span>
+          </a>
+          <p>
+            Jelajahi dan temukan ribuan film pilihan dari seluruh dunia dengan antarmuka retro desktop yang ceria.
+          </p>
+          <div class="footer-file-tags">
+            <span class="pill-badge" style="font-size: 0.65rem; padding: 0.2rem 0.6rem;">.EPS</span>
+            <span class="pill-badge" style="font-size: 0.65rem; padding: 0.2rem 0.6rem;">.JPG</span>
+            <span class="pill-badge" style="font-size: 0.65rem; padding: 0.2rem 0.6rem;">.MOV</span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Navigasi File</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#beranda">&gt; Beranda Utama</a></li>
+            <li><a href="index.html#keunggulan">&gt; Fitur Keunggulan</a></li>
+            <li><a href="index.html#rekomendasi">&gt; 8 Film Pilihan</a></li>
+            <li><a href="index.html#kontak">&gt; Kirim Masukan</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-col-title">Komunitas Sinema</h4>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <a href="https://letterboxd.com" target="_blank" rel="noopener noreferrer" class="pill-badge" style="font-size: 0.7rem;">[ LB ]</a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="pill-badge" style="font-size: 0.7rem;">[ IG ]</a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="pill-badge" style="font-size: 0.7rem;">[ 𝕏 ]</a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="pill-badge" style="font-size: 0.7rem;">[ GH ]</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 FlipPlay Cinema. Hak cipta dilindungi.</p>
+        <p><a href="index.html" style="color: var(--color-yellow); text-decoration: underline;">&larr; Kembali ke Beranda</a></p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ==========================================
+       INTERACTIVE MOVIE DETAIL MODAL
+       ========================================== -->
+  <div class="modal-backdrop" id="movieModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalMovieTitle">
+    <div class="modal-container retro-window">
+      
+      <!-- Window Titlebar with Close Button -->
+      <div class="window-titlebar teal">
+        <span class="window-title">
+          <span>🎬</span>
+          <span>Movie_Viewer.exe</span>
+        </span>
+        <div class="window-controls">
+          <button type="button" class="window-btn" id="modalCloseBtn" aria-label="Tutup jendela">✕</button>
+        </div>
+      </div>
+
+      <!-- Backdrop Banner -->
+      <div class="modal-banner-box">
+        <img id="modalBannerImg" src="" alt="Backdrop film" />
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-content-inner">
+        <!-- Floating Poster -->
+        <div class="modal-poster-wrap">
+          <img id="modalPosterImg" class="modal-poster-img" src="" alt="Poster film" />
+        </div>
+
+        <!-- Movie Details -->
+        <div class="modal-details-col">
+          <h2 id="modalMovieTitle" class="font-display" style="font-size: 1.85rem; line-height: 1.2;">
+            Judul Film
+          </h2>
+
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+            <span id="modalRating" class="pill-badge yellow" style="font-size: 0.75rem;">
+              ★ 0.0
+            </span>
+            <span id="modalYear" class="pill-badge cream" style="font-size: 0.75rem;">
+              Tahun: 2024
+            </span>
+          </div>
+
+          <div id="modalGenres" style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+            <!-- Populated dynamically -->
+          </div>
+
+          <h3 class="font-pixel" style="font-size: 0.95rem; margin-top: 0.35rem;">Sinopsis Cerita</h3>
+          <p id="modalOverview" style="font-size: 0.95rem; line-height: 1.6; color: rgba(44,34,38,0.85);">
+            Memuat ringkasan cerita film...
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JavaScript Application Bundle -->
+  <script src="./app.js"></script>
+
+</body>
+</html>

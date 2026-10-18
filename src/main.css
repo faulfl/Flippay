@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #17132e;
+  --color-paper: #f6f5fb;
+  --color-flip: #ff3d6e;
+  --color-flip-dark: #d92354;
+  --color-aqua: #2ed3c6;
+  --color-sun: #ffc83d;
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+}
